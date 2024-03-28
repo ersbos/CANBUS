@@ -1,0 +1,4 @@
+The article
+https://www.circuitstate.com/tutorials/what-is-can-bus-how-to-use-can-interface-with-esp32-and-arduino/
+The video
+https://www.youtube.com/watch?v=QtOl7ejqIOI&t=4s&ab_channel=TheEVEngineer
