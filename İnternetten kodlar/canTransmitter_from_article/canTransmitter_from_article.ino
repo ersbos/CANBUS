@@ -40,7 +40,7 @@ void canSender() {
   // send packet: id is 11 bits, packet can contain up to 8 bytes of data
   Serial.print ("Sending packet ... ");
 
-  CAN.beginPacket (0x15);  //sets the ID and clears the transmit buffer
+  CAN.beginPacket (0x13);  //sets the ID and clears the transmit buffer
   // CAN.beginExtendedPacket(0xabcdef);
   CAN.write ('9'); //write data to buffer. data is not sent until endPacket() is called.
   CAN.write ('8');
@@ -53,7 +53,7 @@ void canSender() {
   CAN.endPacket();
 
   //RTR packet with a requested data length
-  CAN.beginPacket (0x12, 3, true);
+  CAN.beginPacket (0x13, 3, true);
   CAN.endPacket();
 
   Serial.println ("done");
