@@ -1,3 +1,10 @@
+Bu github Havva Nur Özdemir, Emre Tuncer, Ebru Tekeli, Ümit Çetinkaya tarafından oluşturulmuştur. Tüm kodlar copyright içerir.
+
+
+
+
+
+
 NODEMCU-32S ve canbus TJA1050 kullanmak için oluşturulmuş github.
 
 Article başlıklı kodlar yüklenecektir.
