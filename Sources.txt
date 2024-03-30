@@ -3,4 +3,4 @@ https://www.circuitstate.com/tutorials/what-is-can-bus-how-to-use-can-interface-
 The video
 https://www.youtube.com/watch?v=QtOl7ejqIOI&t=4s&ab_channel=TheEVEngineer
 The library
-https://github.com/McNeight/CAN_Library/tree/master
+https://github.com/sandeepmistry/arduino-CAN

@@ -2,8 +2,8 @@
 
 #include <CAN.h>
 
-#define TX_GPIO_NUM   2// Connects to CTX // Not Rx pin directly Tx pin
-#define RX_GPIO_NUM  4 // Connects to CRX // Not Tx pin directly Rx pin
+#define TX_GPIO_NUM   21// Connects to CTX // Not Rx pin directly Tx pin
+#define RX_GPIO_NUM  22 // Connects to CRX // Not Tx pin directly Rx pin
 
 //==================================================================================//
 
@@ -40,7 +40,7 @@ void canSender() {
   // send packet: id is 11 bits, packet can contain up to 8 bytes of data
   Serial.print ("Sending packet ... ");
 
-  CAN.beginPacket (0x13);  //sets the ID and clears the transmit buffer
+  CAN.beginPacket (0x15);  //sets the ID and clears the transmit buffer
   // CAN.beginExtendedPacket(0xabcdef);
   CAN.write ('9'); //write data to buffer. data is not sent until endPacket() is called.
   CAN.write ('8');

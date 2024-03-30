@@ -2,8 +2,8 @@
 
 #include <CAN.h>
 
-#define TX_GPIO_NUM   21 // Connects to CTX // Not Rx pin directly Tx pin
-#define RX_GPIO_NUM   22 // Connects to CRX// Not Tx pin directly Rx pin
+#define TX_GPIO_NUM   2 // Connects to CTX // Not Rx pin directly Tx pin
+#define RX_GPIO_NUM   4 // Connects to CRX// Not Tx pin directly Rx pin
 
 //==================================================================================//
 
