@@ -12,7 +12,7 @@ DIYables_IRcontroller_17 irController(IR_RECEIVER_PIN, 200); // debounce time is
 void setup() {
 Serial.begin(9600);
   irController.begin();
-
+  
 // Set the pins
   CAN.setPins (RX_GPIO_NUM, TX_GPIO_NUM);
 
@@ -32,40 +32,39 @@ void loop() {
   Key17 key = irController.getKey();
   if (key != Key17::NONE) {
     switch (key) {
-    
       case Key17::KEY_UP:
         Serial.println("UP");
         CAN.beginPacket (0x15);  //sets the ID and clears the transmit buffer
-  // CAN.beginExtendedPacket(0xabcdef);
-  CAN.write ('6'); //write data to buffer. data is not sent until endPacket() is called.
-  
-  CAN.endPacket();
-        // TODO: YOUR CONTROL
-        break;
+        CAN.write ('6'); //write data to buffer. data is not sent until endPacket() is called.
+        CAN.endPacket();
+      break;
 
       case Key17::KEY_DOWN:
         Serial.println("DOWN");
-         CAN.beginPacket (0x15);  //sets the ID and clears the transmit buffer
-  // CAN.beginExtendedPacket(0xabcdef);
- //write data to buffer. data is not sent until endPacket() is called.
-  CAN.write ('5');
-  CAN.endPacket();
-        // TODO: YOUR CONTROL
-        break;
+        CAN.beginPacket (0x15);  //sets the ID and clears the transmit buffer
+        CAN.write ('5');
+        CAN.endPacket();
+      break;
 
       case Key17::KEY_LEFT:
         Serial.println("LEFT");
-        // TODO: YOUR CONTROL
+        CAN.beginPacket (0x15);  //sets the ID and clears the transmit buffer
+        CAN.write ('4');
+        CAN.endPacket();
         break;
 
       case Key17::KEY_RIGHT:
         Serial.println("RIGHT");
-        // TODO: YOUR CONTROL
-        break;
+        CAN.beginPacket (0x15);  //sets the ID and clears the transmit buffer
+        CAN.write ('3');
+        CAN.endPacket();
+      break;
 
       case Key17::KEY_OK :
         Serial.println("OK");
-        // TODO: YOUR CONTROL
+        CAN.beginPacket (0x15);
+        CAN.write ('2');
+        CAN.endPacket();
         break;
 
       default:
@@ -73,7 +72,5 @@ void loop() {
         break;
     }
   }
-  // put your main code here, to run repeatedly:
-
 }
 

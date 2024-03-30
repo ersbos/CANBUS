@@ -5,15 +5,12 @@
 
 
 char received_message[8];
-int motor1Pin1 = 27; 
-int motor1Pin2 = 26; 
-int enable1Pin = 14;
-
-const int freq = 30000;
-const int pwmChannel = 0;
-const int resolution = 8;
-int dutyCycle = 170;
-
+int motor1Pin1_Vcc = 27; 
+int motor1Pin1_Gnd = 26; 
+int motor1Pin2_Vcc = 25; 
+int motor1Pin2_Gnd = 33; 
+int enable1Pin_motor_1= 14;
+int enable1Pin_motor_2= 12;
 
 void setup() {
  Serial.begin (115200);
@@ -25,14 +22,14 @@ void setup() {
   else {
     Serial.println ("CAN Initialized");
   }
-
-  pinMode(motor1Pin1, OUTPUT);
-  pinMode(motor1Pin2, OUTPUT);
-  pinMode(enable1Pin, OUTPUT);
-
-  ledcSetup(pwmChannel, freq, resolution);
-  ledcAttachPin(enable1Pin, pwmChannel);
-  ledcWrite(pwmChannel, dutyCycle);
+//motor 1
+  pinMode(motor1Pin1_Vcc, OUTPUT);
+  pinMode(motor1Pin1_Gnd, OUTPUT);
+  pinMode(enable1Pin_motor_1, OUTPUT);
+//motor 2
+  pinMode(motor1Pin2_Vcc, OUTPUT);
+  pinMode(motor1Pin2_Gnd, OUTPUT);
+  pinMode(enable1Pin_motor_2, OUTPUT);
 
 }
 
@@ -45,27 +42,68 @@ void loop() {
       case '5':
         motor_backward();
         break;
+      case '4' :
+        motor_left();
+        break;
+      case '3' :
+        motor_right();
+        break;
+      case '2':
+        stop();
+        break;
     }
-  
   delay(100); 
 }
+
 void motor_forward(){
-digitalWrite(motor1Pin1, HIGH);
-digitalWrite(motor1Pin2, LOW);
-  dutyCycle = 130;
-  ledcWrite(pwmChannel, dutyCycle);
-  delay(1000);
+  // Move DC motor forward
+  digitalWrite(motor1Pin1_Vcc, HIGH);
+  digitalWrite(motor1Pin1_Gnd, LOW);
+  digitalWrite(motor1Pin2_Vcc, HIGH);
+  digitalWrite(motor1Pin2_Gnd, LOW);
+  analogWrite(enable1Pin_motor_1, 255/2);
+  analogWrite(enable1Pin_motor_2, 255/2);
 }
 
 void motor_backward(){
   // Move DC motor backward
-  digitalWrite(motor1Pin1, LOW);
-  digitalWrite(motor1Pin2, HIGH);
-dutyCycle = 130;
- ledcWrite(pwmChannel, dutyCycle);
-  delay(1000);
+  digitalWrite(motor1Pin1_Vcc, LOW);
+  digitalWrite(motor1Pin1_Gnd, HIGH);
+  digitalWrite(motor1Pin2_Vcc, LOW);
+  digitalWrite(motor1Pin2_Gnd, HIGH);
+  analogWrite(enable1Pin_motor_1, 255/2);
+  analogWrite(enable1Pin_motor_2, 255/2);
 }
 
+void stop(){
+// Stop DC motor 
+  digitalWrite(motor1Pin1_Vcc, LOW);
+  digitalWrite(motor1Pin1_Gnd, LOW);
+  digitalWrite(motor1Pin2_Vcc, LOW);
+  digitalWrite(motor1Pin2_Gnd, LOW);
+  analogWrite(enable1Pin_motor_1, 0);
+  analogWrite(enable1Pin_motor_2, 0); 
+}
+
+void motor_left(){
+// Move DC motor left
+  digitalWrite(motor1Pin1_Vcc, HIGH);
+  digitalWrite(motor1Pin1_Gnd, LOW);
+  digitalWrite(motor1Pin2_Vcc, LOW);
+  digitalWrite(motor1Pin2_Gnd, HIGH);
+  analogWrite(enable1Pin_motor_1, 255/2);
+  analogWrite(enable1Pin_motor_2, 255/2);
+}
+
+void motor_right(){
+  // Move DC motor right
+  digitalWrite(motor1Pin1_Vcc, LOW);
+  digitalWrite(motor1Pin1_Gnd, HIGH);
+  digitalWrite(motor1Pin2_Vcc, HIGH);
+  digitalWrite(motor1Pin2_Gnd, LOW);
+  analogWrite(enable1Pin_motor_1, 255/2);
+  analogWrite(enable1Pin_motor_2, 255/2);
+}
 
 void can_receiver_for_motor(int id,char* data_array){
 int packetSize = CAN.parsePacket();
