@@ -1,0 +1,1 @@
+bu kod proximity sensor, IR kumanda ve eğim sensörünü içermektedir

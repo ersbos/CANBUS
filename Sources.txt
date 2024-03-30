@@ -6,3 +6,7 @@ The library
 https://github.com/sandeepmistry/arduino-CAN
 Proximity ve ekran kullanımı
 https://microdigisoft.com/esp32-with-hc-sr04-ultrasonic-sensor-with-arduino-ide/
+
+Ekran için ebrunun notu:
+"ESP-32S bunu uygulamada olmadığı için ardunio koydum.
+LCD ekrandaki GND, VCC, SDA, SCL ESP32s te sırasıyla GND, VCC (5V), SDA(GPIO21 PİNİNE),SCL(GPIO22 PİNİNE) BAĞLANIR"
