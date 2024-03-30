@@ -4,3 +4,5 @@ The video
 https://www.youtube.com/watch?v=QtOl7ejqIOI&t=4s&ab_channel=TheEVEngineer
 The library
 https://github.com/sandeepmistry/arduino-CAN
+Proximity ve ekran kullanımı
+https://microdigisoft.com/esp32-with-hc-sr04-ultrasonic-sensor-with-arduino-ide/

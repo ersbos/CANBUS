@@ -2,9 +2,10 @@
 
 #include <CAN.h>
 
-#define TX_GPIO_NUM   2 // Connects to CTX // Not Rx pin directly Tx pin
-#define RX_GPIO_NUM   4 // Connects to CRX// Not Tx pin directly Rx pin
+#define TX_GPIO_NUM   21 // Connects to CTX // Not Rx pin directly Tx pin
+#define RX_GPIO_NUM  22 // Connects to CRX// Not Tx pin directly Rx pin
 
+char array_for_id_21[12];
 //==================================================================================//
 
 void setup() {
@@ -31,8 +32,8 @@ void setup() {
 
 void loop() {
   // canSender();
-  canReceiver();
- //can_Receiver_for_idx(21);
+  //canReceiver();
+ can_Receiver_for_idx(21);
 }
 
 //==================================================================================//
@@ -132,7 +133,12 @@ void can_Receiver_for_idx(int id){
 
       // only print packet data for non-RTR packets
       while (CAN.available()) {
-        Serial.print ((char) CAN.read());
+        for(int i=0;i<packetSize;i++){
+       array_for_id_21[i] =(char)CAN.read();
+      // Serial.print("elementh of array ");
+       //Serial.print(i);
+       Serial.print(array_for_id_21[i]);
+        }
       }
       Serial.println();
     }
