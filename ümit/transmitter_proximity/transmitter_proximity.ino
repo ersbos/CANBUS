@@ -10,6 +10,7 @@ long duration;
 String stringValue;
 
 NewPing sonar(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE);
+
 #define TX_GPIO_NUM   21// Connects to CTX // Not Rx pin directly Tx pin
 #define RX_GPIO_NUM  22 // Connects to CRX // Not Tx pin directly Rx pin
 
@@ -24,8 +25,12 @@ CAN.setPins (RX_GPIO_NUM, TX_GPIO_NUM);
 }
 
 void loop() {
-  
-delay(150);
+ proximity_sender() ;
+
+}
+
+void proximity_sender(){
+  delay(150);
 int uS = sonar.ping();
 if (uS==0)
 {
@@ -59,25 +64,3 @@ CAN.beginPacket(0x15);
   CAN.endPacket();
 delay(100);
 }
-
-
-void canSender(uint32_t packetID, const char* data, size_t dataSize) {
-  Serial.print ("Sending packet ... ");
-
-  CAN.beginPacket(packetID);  // Set the ID and clear the transmit buffer
-
-  // Write data to buffer. Data is not sent until endPacket() is called.
-  for (size_t i = 0; i < dataSize; ++i) {
-    CAN.write((char)data[i]);
-    Serial.println("sended data:");
-     Serial.println(i);
-    Serial.print(CAN.write(data[i]));
-  }
-
-  CAN.endPacket(); // Send the packet
-
-  Serial.println ("done");
-
-  delay (1000);
-}
-
