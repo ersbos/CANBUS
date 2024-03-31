@@ -23,15 +23,19 @@ CAN.setPins (RX_GPIO_NUM, TX_GPIO_NUM);
 }
 
 void loop() {
+ lcd_printer_for_proximity(21,1,1);
+ lcd_printer_for_proximity(22,1,0);
+}
+void lcd_printer_for_proximity(int id,int pos_x,int pos_y){
    if (CAN.parsePacket()) {
     // Read the received packet
     uint32_t canId = CAN.packetId();
     uint8_t len = CAN.packetDlc();
-  
-    
+  uint8_t buf[8];
+    if(canId=id){
     // Copy the data into buf
     CAN.readBytes(buf, len);
-
+    }
     // Print the received data
     Serial.print("Received packet from ID 0x");
     Serial.print(canId, HEX);
@@ -41,13 +45,12 @@ void loop() {
     }
     Serial.println();
   
- lcdekranim.setCursor(8,1);
+ lcdekranim.setCursor(pos_x,pos_y);
+ lcdekranim.print("distance:");
  for(int i=0;i<len-1;i++){
  lcdekranim.print((char)buf[i]);
- 
  }
  lcdekranim.print("cm ");
 }
 }
-
 
