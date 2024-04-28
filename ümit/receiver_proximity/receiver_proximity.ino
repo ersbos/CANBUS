@@ -7,7 +7,7 @@ LiquidCrystal_I2C lcdekranim(0x27,16,2);
 #define TX_GPIO_NUM   17// Connects to CTX // Not Rx pin directly Tx pin
 #define RX_GPIO_NUM  16 // Connects to CRX // Not Tx pin directly Rx pin
 
-uint8_t buf[8];
+
 
 //==================================================================================//
 
@@ -24,7 +24,10 @@ CAN.setPins (RX_GPIO_NUM, TX_GPIO_NUM);
 
 void loop() {
  lcd_printer_for_proximity(21,1,1);
+
  lcd_printer_for_proximity(22,1,0);
+ 
+ lcd_printer_for_acceleration(23,8,0);
 }
 void lcd_printer_for_proximity(int id,int pos_x,int pos_y){
    if (CAN.parsePacket()) {
@@ -46,11 +49,38 @@ void lcd_printer_for_proximity(int id,int pos_x,int pos_y){
     Serial.println();
   
  lcdekranim.setCursor(pos_x,pos_y);
- lcdekranim.print("distance:");
+ lcdekranim.print("di:");
  for(int i=0;i<len-1;i++){
  lcdekranim.print((char)buf[i]);
  }
- lcdekranim.print("cm ");
+ lcdekranim.print("");
 }
 }
 
+void lcd_printer_for_acceleration(int id,int pos_x,int pos_y){
+   if (CAN.parsePacket()) {
+    // Read the received packet
+    uint32_t canId = CAN.packetId();
+    uint8_t len = CAN.packetDlc();
+  uint8_t buf[8];
+    if(canId=id){
+    // Copy the data into buf
+    CAN.readBytes(buf, len);
+    }
+    // Print the received data
+    Serial.print("Received packet from ID 0x");
+    Serial.print(canId, HEX);
+    Serial.print(", Data: ");
+    for(int i = 0; i < len-1; i++) {
+      Serial.print((char)buf[i]);
+    }
+    Serial.println();
+  
+ lcdekranim.setCursor(pos_x,pos_y);
+ lcdekranim.print("yac:");
+ for(int i=0;i<len-1;i++){
+ lcdekranim.print((char)buf[i]);
+ }
+ lcdekranim.print("");
+}
+}
